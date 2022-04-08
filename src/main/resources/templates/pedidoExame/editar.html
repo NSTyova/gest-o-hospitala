@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
+	  layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+
+	<section class="layout-content" layout:fragment="corpo">
+		<main role="main">
+		
+		<section class="jumbotron text-center">			
+			<img class="d-block mx-auto" th:src="@{/image/spring-security.png}"
+				width="72" height="72">
+			<div class="container">
+				<h1 class="jumbotron-heading">Sistema de Gestão Hospitalar</h1>
+				<p class="lead text-muted">Médicos e Especialistas</p>
+			</div>
+		</section>
+
+		<div class="album py-5 bg-light">
+			<div class="container d-flex justify-content-center align-items-center">
+
+				<div class="row">
+					<div class="col-md-12">					
+					
+						<div th:replace="fragments/alert :: alerta-sucesso"></div>
+												
+						<form th:action="${pedidoExame.id == null} ? @{/pedidoExames/salvar} : @{/pedidoExames/editar}" 
+							th:object="${pedidoExame}"
+							method="POST" class="was-validated">
+							
+								<div class="form-row">
+								<div class="form-group col-md-12">
+									<small class="form-text text-muted">Tipo de Exame</small>
+									<input type="text" class="form-control"
+										id="tipoExame" placeholder="Hemograma"
+										th:field="*{tipoExame.descricao}" disabled required />
+									<div class="invalid-feedback">
+								      Especialidade é obrigatória.
+								    </div>
+								</div>
+							</div>
+							
+							<div class="form-row">
+								<div class="form-group col-md-12">
+									<small class="form-text text-muted">Nomo do Paciente.</small>
+									<input type="text" class="form-control"
+										id="paciente" placeholder="Natália Wimbo"
+										th:field="*{paciente.nome}" disabled required />
+									<div class="invalid-feedback">
+								      Especialidade é obrigatória.
+								    </div>
+								</div>
+							</div>
+							
+							<div class="form-row">
+								<div class="form-group col-md-12">
+									<small class="form-text text-muted">Nome do Médico.</small>
+									<input type="text" class="form-control"
+										id="med" placeholder="Dr David José"
+										th:field="*{medico.nome}" disabled required />
+									<div class="invalid-feedback">
+								      Especialidade é obrigatória.
+								    </div>
+								</div>
+							</div>
+						
+							
+							<div class="form-row">								
+								<div class="form-group col-md-12">
+									<small class="form-text text-muted">Precçario do Exame</small>
+									<input class="form-control" type="text" id="data" 
+										th:field="*{valor}" disabled required/>
+									<div class="invalid-feedback">
+								      Data é obrigatória.
+								    </div>	
+								</div>
+							</div>
+							
+							<div class="form-row">								
+								<div class="form-group col-md-12">
+									<small class="form-text text-muted">Resultado do Exame</small>
+									<input class="form-control" type="text" id="data" 
+										th:field="*{resultado}" required/>
+									<div class="invalid-feedback">
+								      Data é obrigatória.
+								    </div>	
+								</div>
+							</div>
+														
+							<input type="hidden" th:field="*{id}"/>							
+							<div class="form-group row">
+								<div class="col-sm-10">
+									<button id="btn-salvar" type="submit" class="btn btn-primary" 
+										data-toggle="tooltip" data-placement="right" title="Salvar">
+										<i class="fas fa-save"></i>
+									</button>
+								</div>
+							</div>
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		</main>
+		
+	</section>
+	<script	th:src="@{/js/pedidoexame.js(v=${version})}" th:fragment="js"></script>
+	<script th:inline="javascript" th:fragment="inlinescript"></script>
+</body>
+</html>

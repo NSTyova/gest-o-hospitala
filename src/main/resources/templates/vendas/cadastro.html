@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
+	  layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+
+	<section class="layout-content" layout:fragment="corpo">
+		<main role="main">
+		
+		<section class="jumbotron text-center">			
+			<img class="d-block mx-auto" th:src="@{/image/spring-security.png}"
+				width="72" height="72">
+			<div class="container">
+				<h1 class="jumbotron-heading">Sistema de Gestão Farmácia</h1>
+				<p class="lead text-muted">Registrar Vendas</p>
+			</div>
+		</section>
+
+		<div class="album py-5 bg-light">
+			<div class="container d-flex justify-content-center align-items-center">
+
+				<div class="row">
+					<div class="col-md-12">					
+					
+						<div th:replace="fragments/alert :: alerta-sucesso"></div>
+												
+						<form th:action="${vendas.id == null} ? @{/vendas/salvar} : @{/vendas/editar}" 
+							th:object="${vendas}"
+							method="POST" class="was-validated">
+							
+							<div class="form-row">
+								<div class="form-group col-md-12">
+									<small class="form-text text-muted">Selecione 
+										o fornecedor referente a sua consulta.</small>
+									<input type="text" class="form-control"
+										id="fornecedor" placeholder="Natália Wimbo"
+										th:field="*{estoque.produtos.nome}" required />
+									<div class="invalid-feedback">
+								      Especialidade é obrigatória.
+								    </div>
+								</div>
+							</div>
+							
+							<div class="form-row">								
+								<div class="form-group col-md-12">
+									<small class="form-text text-muted">Peso do produto</small>
+									<input class="form-control" type="text" id="peso" 
+										th:field="*{preco}" required/>
+									<div class="invalid-feedback">
+								      Data é obrigatória.
+								    </div>	
+								</div>
+							</div>
+							
+							<div class="form-row">								
+								<div class="form-group col-md-12">
+									<small class="form-text text-muted">Selecione 
+										a Data Registro</small>
+									<input class="form-control" type="date" id="data" 
+										th:field="*{dataRegistro}" disabled/>
+									<div class="invalid-feedback">
+								      Data é obrigatória.
+								    </div>	
+								</div>
+							</div>
+														
+							<input type="hidden" th:field="*{id}"/>							
+							<div class="form-group row">
+								<div class="col-sm-10">
+									<button id="btn-salvar" type="submit" class="btn btn-primary" 
+										data-toggle="tooltip" data-placement="right" title="Salvar">
+										<i class="fas fa-save"></i>
+									</button>
+								</div>
+							</div>
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		</main>
+		
+	</section>
+		<script	th:src="@{/js/vendas.js(v=${version})}" th:fragment="js"></script>
+		<script th:inline="javascript" th:fragment="inlinescript"></script>
+</body>
+</html>
